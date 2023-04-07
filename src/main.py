@@ -7,14 +7,16 @@ from scipy.io import wavfile
 def write_output(output, samplerate):
     output = output.real
     numpy_output = numpy.array(output, dtype=numpy.int16)
-    wavfile.write("output.wav", samplerate, numpy_output)
+    wavfile.write("out/output.wav", samplerate, numpy_output)
 
 
 def read_input():
-    cut_off_frequency = input("Please enter cut off frequency (standard is 1000Hz): \n")
-    file_name = input("Please enter file name (standard is violin.wav): \n")
+    cut_off_frequency = input("Please enter cut off frequency (skip for 1000Hz): \n")
+    file_name = input("Please enter file name (skip for violin.wav): \n")
     if file_name == "":
-        file_name = "violin.wav"
+        file_name = "res/violin.wav"
+    else:
+        file_name = "res/" + file_name
     if cut_off_frequency == "":
         cut_off_frequency = 1000
     else:
@@ -27,7 +29,7 @@ def draw_output(samples, samplerate, name, cut_off):
     plt.plot(samples)
     title = name + "_sound_data_" + str(cut_off)
     plt.title(title)
-    plt.savefig(title + '.png')
+    plt.savefig("out/" + title + '.png')
     plt.close()
 
     yf = rfft(samples)
@@ -36,7 +38,7 @@ def draw_output(samples, samplerate, name, cut_off):
     plt.semilogx(abs(xf), numpy.abs(yf))
     title = name + "_frequencies_" + str(cut_off)
     plt.title(title)
-    plt.savefig(title + '.png')
+    plt.savefig("out/" + title + '.png')
     plt.close()
 
 
