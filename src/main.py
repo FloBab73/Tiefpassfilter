@@ -35,16 +35,20 @@ def draw_output(samples, samplerate, name, cut_off):
     yf = rfft(samples)
     xf = rfftfreq(len(samples), 1 / samplerate)
 
-    plt.semilogx(abs(xf), numpy.abs(yf))
-    title = name + "_frequencies_" + str(cut_off)
-    plt.title(title)
-    plt.savefig("out/" + title + '.png')
-    plt.close()
+    yf = yf[:, 0]
+    try:
+        plt.semilogx(abs(xf), numpy.abs(yf))
+        title = name + "_frequencies_" + str(cut_off)
+        plt.title(title)
+        plt.savefig("out/" + title + '.png')
+        plt.close()
+    except ValueError:
+        print("no possible plot output for this sound file")
 
 
 def main():
     samplerate, samples, cut_off_frequency = read_input()
-    draw_output(samples, samplerate, "input", "")
+    # draw_output(samples, samplerate, "input", "")
     frequencies = rfft(samples)
     frequency_steps = rfftfreq(len(samples), 1 / samplerate)
 
