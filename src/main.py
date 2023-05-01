@@ -1,6 +1,6 @@
 import numpy
 from matplotlib import pyplot as plt
-from scipy.fft import irfft, rfftfreq, rfft
+from scipy.fft import irfft, rfftfreq, rfft, fft, fftfreq
 from scipy.io import wavfile
 
 
@@ -32,10 +32,8 @@ def draw_output(samples, samplerate, name, cut_off):
     plt.savefig("out/" + title + '.png')
     plt.close()
 
-    yf = rfft(samples)
-    xf = rfftfreq(len(samples), 1 / samplerate)
-
-    yf = yf[:, 0]
+    yf = fft(samples)
+    xf = fftfreq(len(samples), 1 / samplerate)
     try:
         plt.semilogx(abs(xf), numpy.abs(yf))
         title = name + "_frequencies_" + str(cut_off)
@@ -48,7 +46,7 @@ def draw_output(samples, samplerate, name, cut_off):
 
 def main():
     samplerate, samples, cut_off_frequency = read_input()
-    # draw_output(samples, samplerate, "input", "")
+    draw_output(samples, samplerate, "input", "")
     frequencies = rfft(samples)
     frequency_steps = rfftfreq(len(samples), 1 / samplerate)
 
