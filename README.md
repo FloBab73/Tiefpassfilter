@@ -1,4 +1,8 @@
 # Tiefpassfilter
+Prüfungsleistung für Digitale Sprachverarbeitung an der DHBW Karlsruhe
+
+[Link zu Github](https://github.com/FloBab73/Tiefpassfilter)
+
 Gruppe: Florian Babel, Johannes Welsch, Tom Witzel
 
 ## Benutzung
