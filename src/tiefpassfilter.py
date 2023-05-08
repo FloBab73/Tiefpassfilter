@@ -2,25 +2,23 @@ import numpy
 from matplotlib import pyplot as plt
 from scipy.fft import irfft, rfftfreq, rfft, fft, fftfreq
 from scipy.io import wavfile
+import sys
 
 
 def write_output(output, samplerate):
     output = output.real
     numpy_output = numpy.array(output, dtype=numpy.int16)
-    wavfile.write("out/output.wav", samplerate, numpy_output)
+    wavfile.write("../out/output.wav", samplerate, numpy_output)
 
 
 def read_input():
-    cut_off_frequency = input("Please enter cut off frequency (skip for 1000Hz): \n")
-    file_name = input("Please enter file name (skip for violin.wav): \n")
-    if file_name == "":
-        file_name = "res/violin.wav"
-    else:
-        file_name = "res/" + file_name
-    if cut_off_frequency == "":
+    if len(sys.argv) < 3:
         cut_off_frequency = 1000
+        file_name = "../res/violin.wav"
     else:
-        cut_off_frequency = int(cut_off_frequency)
+        cut_off_frequency = int(sys.argv[1])
+        file_name = "../res/" + sys.argv[2] + ".wav"
+
     samplerate, samples = wavfile.read(file_name)
     return samplerate, samples, cut_off_frequency
 
@@ -29,19 +27,16 @@ def draw_output(samples, samplerate, name, cut_off):
     plt.plot(samples)
     title = name + "_sound_data_" + str(cut_off)
     plt.title(title)
-    plt.savefig("out/" + title + '.png')
+    plt.savefig("../out/" + title + '.png')
     plt.close()
 
     yf = fft(samples)
     xf = fftfreq(len(samples), 1 / samplerate)
-    try:
-        plt.semilogx(abs(xf), numpy.abs(yf))
-        title = name + "_frequencies_" + str(cut_off)
-        plt.title(title)
-        plt.savefig("out/" + title + '.png')
-        plt.close()
-    except ValueError:
-        print("no possible plot output for this sound file")
+    plt.semilogx(abs(xf), numpy.abs(yf))
+    title = name + "_frequencies_" + str(cut_off)
+    plt.title(title)
+    plt.savefig("../out/" + title + '.png')
+    plt.close()
 
 
 def main():
