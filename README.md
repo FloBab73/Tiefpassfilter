@@ -1,9 +1,8 @@
 # Tiefpassfilter
-Prüfungsleistung für Digitale Sprachverarbeitung an der DHBW Karlsruhe
 
-[Link zu Github](https://github.com/FloBab73/Tiefpassfilter)
+### Prüfungsleistung für Digitale Sprachverarbeitung an der DHBW Karlsruhe
 
-Gruppe: Florian Babel, Johannes Welsch, Tom Witzel
+### Gruppe: Florian Babel, Johannes Welsch, Tom Witzel
 
 ## Benutzung
 - _main.py_ mit Parametern ausführen

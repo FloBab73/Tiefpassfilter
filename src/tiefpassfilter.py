@@ -10,7 +10,7 @@ def write_output(output, samplerate):
     numpy_output = numpy.array(output, dtype=numpy.int16)
     wavfile.write("../out/output.wav", samplerate, numpy_output)
 
-
+#reads form  the .wav file, uses parameters to determine the cutoff frequency and to create a new name for the edited file
 def read_input():
     if len(sys.argv) < 3:
         cut_off_frequency = 1000
@@ -22,7 +22,7 @@ def read_input():
     samplerate, samples = wavfile.read(file_name)
     return samplerate, samples, cut_off_frequency
 
-
+#draws the graphs of the (un)edited frequencies
 def draw_output(samples, samplerate, name, cut_off):
     plt.plot(samples)
     title = name + "_sound_data_" + str(cut_off)
@@ -38,7 +38,7 @@ def draw_output(samples, samplerate, name, cut_off):
     plt.savefig("../out/" + title + '.png')
     plt.close()
 
-
+#reads the input, creates the graphs for inputs / outputs, cuts off the frequencies above the cut_off_frequency
 def main():
     samplerate, samples, cut_off_frequency = read_input()
     draw_output(samples, samplerate, "input", "")
